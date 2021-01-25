@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "PawnBase.h"
-#include "GameFramework/SpringArmComponent.h"
-#include "Camera/CameraComponent.h"
 #include "PawnTank.generated.h"
+
+class USpringArmComponent;
+class UCameraComponent;
 
 /**
  * 
@@ -26,20 +27,24 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
+	bool GetIsPlayerAlive();
+	
+	virtual void HandleDestruction() override;
+
 protected:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	virtual void HandleDestruction() override;
 
 private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* SpringArm;
+	USpringArmComponent* SpringArm;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* Camera;
+	UCameraComponent* Camera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float MoveSpeed;
@@ -47,7 +52,9 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float RotateSpeed;
 
-	class APlayerController* PlayerControllerRef;
+	bool bIsPlayerAlive;
+
+	APlayerController* PlayerControllerRef;
 
 	FVector MoveDirection;
 

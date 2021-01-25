@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 
+
 APawnTank::APawnTank() {
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -18,6 +19,9 @@ APawnTank::APawnTank() {
 	MoveSpeed = 100.f;
 
 	RotateSpeed = 80.f;
+
+	bIsPlayerAlive = true;
+
 }
 
 // Called when the game starts or when spawned
@@ -26,12 +30,19 @@ void APawnTank::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerControllerRef = Cast<APlayerController>(GetController());
+
 }
 
 void APawnTank::HandleDestruction()
 {
 
 	Super::HandleDestruction();
+
+	bIsPlayerAlive = false;
+
+	SetActorHiddenInGame(true);
+
+	SetActorTickEnabled(false);
 
 	// Hide player. Create a new function to do this.
 
@@ -103,3 +114,8 @@ void APawnTank::Tick(float DeltaTime)
 
 }
 
+bool APawnTank::GetIsPlayerAlive() {
+
+	return bIsPlayerAlive;
+
+}

@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/SceneComponent.h"
-#include "../Actors/ProjectileBase.h"
 #include "PawnBase.generated.h"
+
+class UCapsuleComponent;
+class UHealthComponent;
+class AProjectileBase;
 
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
@@ -19,6 +19,8 @@ public:
 	// Sets default values for this pawn's properties
 	APawnBase();
 
+	virtual void HandleDestruction();
+
 
 protected:
 	
@@ -26,23 +28,28 @@ protected:
 
 	void Fire();
 
-	virtual void HandleDestruction();
 
 private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UCapsuleComponent* CapsuleComponent;
+	UCapsuleComponent* CapsuleComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UStaticMeshComponent* BaseMesh;
+	UStaticMeshComponent* BaseMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UStaticMeshComponent* TurretMesh;
+	UStaticMeshComponent* TurretMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class USceneComponent* ProjectileSpawnPoint;
+	USceneComponent* ProjectileSpawnPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	UParticleSystem* DeathParticle;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UHealthComponent* HealthComponent;
 
 };
