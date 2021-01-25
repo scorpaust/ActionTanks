@@ -35,6 +35,12 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	UParticleSystem* HitParticle;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	USoundBase* LaunchSound;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Damage")
 	TSubclassOf<UDamageType> DamageType;
 
