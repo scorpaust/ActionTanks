@@ -71,4 +71,6 @@ void APawnBase::HandleDestruction()
 
 	UGameplayStatics::SpawnSoundAtLocation(this, DeathSound, GetActorLocation());
 
+	GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(ExplodeShake);
+
 }
